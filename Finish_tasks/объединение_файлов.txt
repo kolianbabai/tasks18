@@ -1,0 +1,41 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class Sol {
+
+    public static void main(String[] args) throws IOException {
+
+        Scanner sc = new Scanner(System.in);
+
+        String fileName1 = sc.nextLine();
+        String fileName2 = sc.nextLine();
+         
+        sc.close();
+
+
+        ByteArrayOutputStream byteArrayOutStream = new ByteArrayOutputStream();
+
+        FileInputStream fis1 = new FileInputStream(fileName2);
+
+        while (fis1.available() > 0) {
+            byteArrayOutStream.write(fis1.read());
+        }//байты, которые нужно записать в начало файла
+
+        FileInputStream fileIS = new FileInputStream(fileName1); //fileName1 - файл, в начало которого нужно дописать байты
+
+        while(fileIS.available() > 0) {
+            byteArrayOutStream.write(fileIS.read());
+        }
+        fileIS.close();
+
+        FileOutputStream fileOS = new FileOutputStream(fileName1);
+
+        byteArrayOutStream.writeTo(fileOS);
+
+        fis1.close();
+        fileOS.close();
+        byteArrayOutStream.close();
+
+
+    }
+}

@@ -1,0 +1,43 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+
+        ArrayList<Integer> arr = new ArrayList<>();
+
+        Scanner sc = new Scanner(System.in);
+        FileInputStream fileInputStream = new FileInputStream(sc.nextLine());
+      
+        sc.close();
+
+        while (fileInputStream.available() > 0){
+            arr.add(fileInputStream.read());
+        }
+
+        int max = 0;
+        int count = 0;
+
+        for (int i = 0; i < arr.size() ; i++) {
+            int result = Collections.frequency(arr, arr.get(i));
+            if(result > max){
+                max = result;
+            }
+        }
+
+        for (int i = 0; i < arr.size() ; i++) {
+
+            if (Collections.frequency(arr, arr.get(i)) == max){
+                System.out.print(arr.get(i) + " ");
+            }
+
+        }
+       fileInputStream.close();
+
+    }
+}
+
