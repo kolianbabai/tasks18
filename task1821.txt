@@ -1,0 +1,62 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.TreeSet;
+
+public class Solut {
+
+    public static void main(String[] args) throws IOException {
+
+        FileInputStream fis = new FileInputStream(args[0]);
+
+        ArrayList<Byte> arrayList = new ArrayList<>();
+
+        TreeSet<Byte> symbols = new TreeSet<>();
+
+        while (fis.available() > 0){
+            arrayList.add((byte) fis.read());
+        }
+        for(byte a: arrayList){
+            symbols.add(a);
+        }
+
+        for(byte code : symbols){
+
+            char sym = (char) code;
+
+            System.out.println(sym + " " + Collections.frequency(arrayList, code));
+
+        }
+
+//        for(byte code : symbols){
+//            System.out.println(code);
+//        }
+
+//        for (byte code: symbols) {
+//
+//            char symbol = (char) code;
+//            System.out.println(symbol);
+//        }
+
+//        for (int i = 0; i < arrayList.size() - 1; i++) {
+//
+//            if(arrayList.get(i) != arrayList.get(i + 1)){
+//                int freqArr = Collections.frequency(arrayList, arrayList.get(i));
+//                byte code = arrayList.get(i);
+//                char symbol = (char) code;
+//                System.out.println( symbol + " " + freqArr );
+//            }
+
+
+    }
+
+//        byte code = 5;
+//        char symbol = (char) code;
+//
+//        System.out.println(symbol);
+//        byte code = (byte) fis.read();
+//        char symbol = (char) code;
+////        System.out.printf("%s %d\n", symbol, code);
+//
+//    }
+}

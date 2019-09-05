@@ -1,0 +1,57 @@
+/*Считать с консоли 2 имени файла.
+Первый файл содержит вещественные(дробные) числа, разделенные пробелом.
+
+Например, 3.1415.
+Округлить числа до целых и записать через пробел во второй файл.
+Закрыть потоки.
+
+Принцип округления: 3.49 => 3
+ 3.50 => 4
+ 3.51 => 4
+  -3.49 => -3
+   -3.50 => -3
+    -3.51 => -4 */
+    
+    
+    package com.example.mySolution001;
+    
+    import java.io.*;
+    import java.util.Scanner;
+    
+    public class MySolution001 {
+    
+        public static void main(String[] args) throws IOException {
+    
+            Scanner scanner = new Scanner(System.in);
+           FileInputStream fis = new FileInputStream(scanner.nextLine());
+    //        FileInputStream fis = new FileInputStream("/home/bns/1.txt");
+    //        FileOutputStream fos = new FileOutputStream("/home/bns/2.txt");
+            FileOutputStream fos = new FileOutputStream(scanner.nextLine());
+    
+            String [] strings = null;
+    
+            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+            String strLine;
+            while ((strLine = br.readLine()) != null) {
+    
+                strings = strLine.split(" ");
+    
+            }
+    
+            for (int i = 0; i < strings.length ; i++) {
+    
+               Double num = Double.parseDouble(strings[i]);
+               int numInt = (int) Math.round(num);
+               
+                fos.write(Integer.toString(numInt).getBytes());
+                fos.write(" ".getBytes());
+    
+            }
+    
+            scanner.close();
+            fis.close();
+            fos.close();
+            br.close();
+    
+        }
+    }

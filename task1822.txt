@@ -1,0 +1,55 @@
+Считать с консоли имя файла.
+Найти в файле информацию, которая относится к заданному id, и вывести её на экран в виде, в котором
+она записана в файле.
+Программа запускается с одним параметром: id(int).
+Закрыть потоки.
+
+В файле данные разделены пробелом и хранятся в след.последовательности:
+id productName price quantity
+int String     double  int(количество).
+
+1. Программа должна считать имя файла.
+2. Создать для файла поток для чтения.
+3. Программа должна найти в файле и вывести информацию о id, который передаётся первым параметром.
+4. Поток для чтения из файла должен быть закрыт.
+
+package com.example.mySolution001;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.io.IOException;
+
+public class MySolution001 {
+
+        public static void main(String[] args) throws IOException {
+
+            Scanner scanner = new Scanner(System.in);
+           FileInputStream fis = new FileInputStream(scanner.nextLine());
+            //FileInputStream fis = new FileInputStream("/home/bns/1.txt");
+            int id = 3432;
+            String s = Integer.toString(id);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+            String strLine;
+            while ((strLine = br.readLine()) != null) {
+
+                String [] strings = strLine.split(" ");
+                if(strings[0].equals(s)){
+                    System.out.println(strLine);
+                }
+
+
+            }
+
+            scanner.close();
+            fis.close();
+            br.close();
+            
+        }
+    }
+
+
+
+
