@@ -1,3 +1,5 @@
+package com.javarush.task.task18.task1803;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,19 +10,21 @@ import java.util.Scanner;
 public class Solution {
     public static void main(String[] args) throws IOException {
 
-        ArrayList<Integer> arr = new ArrayList<>();
+        ArrayList<Character> arr = new ArrayList<>();
+        ArrayList<Character> arrFinish = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
         FileInputStream fileInputStream = new FileInputStream(sc.nextLine());
-      
+
         sc.close();
 
         while (fileInputStream.available() > 0){
-            arr.add(fileInputStream.read());
+
+            char c = (char) fileInputStream.read();
+            arr.add(c);
         }
 
         int max = 0;
-        int count = 0;
 
         for (int i = 0; i < arr.size() ; i++) {
             int result = Collections.frequency(arr, arr.get(i));
@@ -29,15 +33,28 @@ public class Solution {
             }
         }
 
+        int count = Integer.MIN_VALUE;
+
         for (int i = 0; i < arr.size() ; i++) {
 
-            if (Collections.frequency(arr, arr.get(i)) == max){
-                System.out.print(arr.get(i) + " ");
+            if (Collections.frequency(arr, arr.get(i)) == max && arr.get(i) != count){
+                count = arr.get(i);
+                arrFinish.add(arr.get(i));
+                //System.out.print(arr.get(i) + " ");
+            }
+        }
+
+        for (int i = 0; i < arrFinish.size() ; i++) {
+            if(i == arrFinish.size() - 1){
+                char ch = (char)arrFinish.get(i);
+                System.out.print(arrFinish.get(i));
+            }else{
+                System.out.print(arrFinish.get(i) + " ");
             }
 
         }
-       fileInputStream.close();
+
+        fileInputStream.close();
 
     }
 }
-
