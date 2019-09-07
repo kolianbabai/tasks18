@@ -1,0 +1,67 @@
+Собираем файл из кусочков.
+Считываем с консоли имена файлов.
+Каждый файл имеет имя: [someName].partN.
+Например Lion.avi.part1, Lion.avi.part2,...,Lion.avi.part37.
+
+Имена файлов подаются в произвольном порядке. Ввод заканчивается словом "end".
+В папке, где находятся все прочтенные файлы, создать файл без суффикса partN.
+
+Например Lion.avi
+
+В него переписать все байты из файлов-частей используя буфер.
+Файлы переписывать в строгой последовательности, сначала первую часть, потом вторую, в конце последнюю.
+Закрыть потоки.
+
+1. Программа должна считывать иммена файлов с консоли, пока не будет введено слово "end".
+2. Создать поток для записи в файл без суффикса [.partN] в папке, где находятся все считанные файлы.
+3. В новый файл перепиши все байты из файлов-частей *.partN.
+4. Чтение и запись должны происходить с помощью буфера.
+5. Потоки закрыть.
+6. Не использовать статические переменные.
+
+package com.example.mySolution001;
+
+/*Проверка
+   /home/bns/001.txt.part1
+   /home/bns/001.txt.part2
+   /home/bns/001.txt.part3
+   /home/bns/001.txt*/
+
+import java.io.*;
+import java.util.*;
+
+public class Solution{
+
+    public static void main(String[] args) throws IOException {
+
+       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        ByteArrayOutputStream byteArrayOutStream = new ByteArrayOutputStream();
+       SortedSet<String> filesSet = new TreeSet<>();
+        String lastWord = null;
+
+          while (true){
+              lastWord = br.readLine();
+              if(lastWord.equals("end")){break;}
+              filesSet.add(lastWord);
+          }
+
+          Iterator iter = filesSet.iterator();
+
+          while (iter.hasNext()){
+
+             FileInputStream fis = new FileInputStream(iter.next().toString());
+             while (fis.available() > 0){
+                 byteArrayOutStream.write(fis.read());
+             }
+          }
+
+
+        FileOutputStream fileAll = new FileOutputStream(br.readLine());
+
+          byteArrayOutStream.writeTo(fileAll);
+          
+          br.close();
+          byteArrayOutStream.close();
+          fileAll.close();
+    }
+}
