@@ -32,8 +32,7 @@ public class Solution {
         }
         return param;
     }
-
-    public static String getFromFile(String fileName) throws IOException{
+ public static String getFromFile(String fileName) throws IOException{
 
         String line, result = null;
 
@@ -43,24 +42,30 @@ public class Solution {
 
             BufferedReader reader = new BufferedReader(fr);
 
+            Integer maxId = Integer.MIN_VALUE;
+
             while (true){
                 line = reader.readLine();
                 if(line == null){break;}
                 result = line;
+                String resultLine = result.substring(0, 8).replace(" ", "");
+                Integer i = Integer.parseInt(resultLine);
+                if(i > maxId){
+                    maxId = i;
+                }
             }
             fr.close();
             reader.close();
 
-    String resultLine = result.substring(0, 8).replace(" ", "");
-    Integer i = Integer.parseInt(resultLine);
-    i++;
-    resultLine = i.toString();
 
-    while(resultLine.length() < 8){
-        resultLine = resultLine + " ";
+    maxId++;
+    line = maxId.toString();
+
+    while(line.length() < 8){
+        line = line + " ";
     }
 
-    return resultLine;
+    return line;
     }
 
     public static void putToFile(String fileName, String text) throws IOException{
