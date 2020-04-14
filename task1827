@@ -1,0 +1,76 @@
+package com.javarush.task.task18.task1827;
+
+import java.util.Scanner;
+import java.io.*;
+
+public class Solution {
+    public static void main(String[] args) throws Exception {
+
+        if(args.length>0) {
+            Scanner sc = new Scanner(System.in);
+            if (args[0].equals("-c")) {
+
+                String fileName = sc.nextLine();
+                String id = getFromFile(fileName);
+                //System.out.println(id); //  для проверки id
+                putToFile(fileName, "\n" + id + requiredLength(30, args[1]) + requiredLength(8, args[2])
+                        + requiredLength(4, args[3]));
+            }
+            sc.close();
+        }
+
+
+    }
+
+    public static String requiredLength(int cardinality, String param){
+        while (param.length() != cardinality){
+            if((param.length() < cardinality)){
+                param = param + " ";
+            } else{
+                param = param.substring(0, cardinality);
+            }
+        }
+        return param;
+    }
+
+    public static String getFromFile(String fileName) throws IOException{
+
+        String line, result = null;
+
+            File file = new File(fileName);
+
+            FileReader fr = new FileReader(file);
+
+            BufferedReader reader = new BufferedReader(fr);
+
+            while (true){
+                line = reader.readLine();
+                if(line == null){break;}
+                result = line;
+            }
+            fr.close();
+            reader.close();
+
+    String resultLine = result.substring(0, 8).replace(" ", "");
+    Integer i = Integer.parseInt(resultLine);
+    i++;
+    resultLine = i.toString();
+
+    while(resultLine.length() < 8){
+        resultLine = resultLine + " ";
+    }
+
+    return resultLine;
+    }
+
+    public static void putToFile(String fileName, String text) throws IOException{
+
+            FileWriter writer = new FileWriter(fileName, true);
+            BufferedWriter bufferWriter = new BufferedWriter(writer);
+            bufferWriter.write(text);
+            bufferWriter.close();
+
+
+    }
+
+}
